@@ -297,12 +297,14 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>netty-codec-http</artifactId>
+      <version>4.1.65.Final</version>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>netty-codec-http2</artifactId>
+      <version>4.1.65.Final</version>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>

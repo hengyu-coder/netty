@@ -140,12 +140,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>netty-codec-http</artifactId>
-      <version>${project.version}</version>
+      <version>4.1.65.Final</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>netty-codec-http2</artifactId>
-      <version>${project.version}</version>
+      <version>4.1.65.Final</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>

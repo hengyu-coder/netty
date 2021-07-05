@@ -511,8 +511,8 @@
     <module>codec</module>
     <module>codec-dns</module>
     <module>codec-haproxy</module>
-    <module>codec-http</module>
-    <module>codec-http2</module>
+<!--    <module>codec-http</module>-->
+<!--    <module>codec-http2</module>-->
     <module>codec-memcache</module>
     <module>codec-mqtt</module>
     <module>codec-redis</module>
@@ -534,17 +534,17 @@
     <module>handler</module>
     <module>handler-proxy</module>
     <module>example</module>
-    <module>testsuite</module>
-    <module>testsuite-autobahn</module>
-    <module>testsuite-http2</module>
-    <module>testsuite-osgi</module>
-    <module>testsuite-shading</module>
-    <module>testsuite-native</module>
-    <module>testsuite-native-image</module>
-    <module>testsuite-native-image-client</module>
-    <module>testsuite-native-image-client-runtime-init</module>
-    <module>transport-blockhound-tests</module>
-    <module>microbench</module>
+<!--    <module>testsuite</module>-->
+<!--    <module>testsuite-autobahn</module>-->
+<!--    <module>testsuite-http2</module>-->
+<!--    <module>testsuite-osgi</module>-->
+<!--    <module>testsuite-shading</module>-->
+<!--    <module>testsuite-native</module>-->
+<!--    <module>testsuite-native-image</module>-->
+<!--    <module>testsuite-native-image-client</module>-->
+<!--    <module>testsuite-native-image-client-runtime-init</module>-->
+<!--    <module>transport-blockhound-tests</module>-->
+<!--    <module>microbench</module>-->
     <module>bom</module>
   </modules>
 
