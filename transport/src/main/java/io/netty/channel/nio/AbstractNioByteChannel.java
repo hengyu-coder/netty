@@ -49,6 +49,7 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
     private final Runnable flushTask = new Runnable() {
         @Override
         public void run() {
+            //解决半包问题
             // Calling flush0 directly to ensure we not try to flush messages that were added via write(...) in the
             // meantime.
             ((AbstractNioUnsafe) unsafe()).flush0();
@@ -212,6 +213,13 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
         return doWriteInternal(in, in.current());
     }
 
+    /**
+     * 写成功返回具体的数值，写失败后返回 Integer最大数值标识写缓冲区已经满了，不能继续写入
+     * @param in
+     * @param msg
+     * @return
+     * @throws Exception
+     */
     private int doWriteInternal(ChannelOutboundBuffer in, Object msg) throws Exception {
         if (msg instanceof ByteBuf) {
             ByteBuf buf = (ByteBuf) msg;
@@ -247,16 +255,20 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
             // Should not reach here.
             throw new Error();
         }
+        //写状态 send buf 已经满了
         return WRITE_STATUS_SNDBUF_FULL;
     }
 
     @Override
     protected void doWrite(ChannelOutboundBuffer in) throws Exception {
         int writeSpinCount = config().getWriteSpinCount();
+        //写自旋转数量控制，防止占用过多的 IO线程自旋转
         do {
+            //获取当前需要发送的消息
             Object msg = in.current();
             if (msg == null) {
                 // Wrote all messages.
+                //写出了所有的消息
                 clearOpWrite();
                 // Directly return here so incompleteWrite(...) is not called.
                 return;
@@ -298,6 +310,7 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
             clearOpWrite();
 
             // Schedule flush again later so other tasks can be picked up in the meantime
+            // 稍后再次安排刷新，以便同时处理其他任务
             eventLoop().execute(flushTask);
         }
     }
@@ -345,7 +358,9 @@ public abstract class AbstractNioByteChannel extends AbstractNioChannel {
             return;
         }
         final int interestOps = key.interestOps();
+        //说明当前selectkey是可写操作位
         if ((interestOps & SelectionKey.OP_WRITE) != 0) {
+            //清除写操作位
             key.interestOps(interestOps & ~SelectionKey.OP_WRITE);
         }
     }

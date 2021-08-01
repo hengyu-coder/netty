@@ -297,11 +297,13 @@ public abstract class AbstractByteBuf extends ByteBuf {
         }
 
         // Normalize the target capacity to the power of 2.
+        //计算新的扩展容量
         final int fastWritable = maxFastWritableBytes();
         int newCapacity = fastWritable >= minWritableBytes ? writerIndex + fastWritable
                 : alloc().calculateNewCapacity(targetCapacity, maxCapacity);
 
         // Adjust to the new capacity.
+        //进行扩容
         capacity(newCapacity);
     }
 
@@ -892,8 +894,11 @@ public abstract class AbstractByteBuf extends ByteBuf {
 
     @Override
     public ByteBuf readBytes(byte[] dst, int dstIndex, int length) {
+        //检测可读取空间长度
         checkReadableBytes(length);
+        //进行读操作，由于每个子实现类可能不能，现在交由子类实现这个方法
         getBytes(readerIndex, dst, dstIndex, length);
+        //更新读索引位置
         readerIndex += length;
         return this;
     }

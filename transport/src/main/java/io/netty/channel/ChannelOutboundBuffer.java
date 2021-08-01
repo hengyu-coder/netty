@@ -40,9 +40,11 @@ import java.util.concurrent.atomic.AtomicLongFieldUpdater;
 import static java.lang.Math.min;
 
 /**
+ * 传输实现一个中间的数据结构，被AbstractChannel存储写出的请求使用
  * (Transport implementors only) an internal data structure used by {@link AbstractChannel} to store its pending
  * outbound write requests.
  * <p>
+ *     所有的方法必须被I/O thread使用，以下方法除外
  * All methods must be called by a transport implementation from an I/O thread, except the following ones:
  * <ul>
  * <li>{@link #size()} and {@link #isEmpty()}</li>
